@@ -50,7 +50,8 @@ jobs:
           if [[ "${{ matrix.use_hw2lib }}" == "true" ]]; then
             case "${{ matrix.os }}" in
               ubuntu-*) base="lib"; plat="linux" ;;
-              macos-*)  base="lib"; plat="mac" ;;
+              macos-13)  base="lib"; plat="mac" ;;
+              macos-14)  base="lib"; plat="mac-arm64" ;;
               windows-*) base="lib"; plat="win" ;;
             esac
 
@@ -65,7 +66,11 @@ jobs:
             echo "dir=${dir}" >> "$GITHUB_OUTPUT"
             # Show contents to help catch wrong-arch/missing libs (non-fatal here)
             echo "Expecting HW2 lib at: $dir"
-            ls -la "$dir" || true
+            
+            if [[ ! -d "$dir" ]]; then
+              echo "::error title=Missing HW2 Library::Directory $dir not found"
+              exit 1
+            fi
           else
             echo "dir=" >> "$GITHUB_OUTPUT"
           fi
