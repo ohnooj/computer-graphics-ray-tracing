@@ -52,7 +52,7 @@ jobs:
               ubuntu-*) base="lib"; plat="linux" ;;
               macos-13)  base="lib"; plat="mac" ;;
               macos-14)  base="lib"; plat="mac-arm64" ;;
-              windows-*) base="lib"; plat="win" ;;
+              windows-*) base="lib"; plat="windows" ;;
             esac
 
             # map build_type into path segment
