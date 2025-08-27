@@ -68,10 +68,12 @@ set(HW2LIB_DIR  "" CACHE PATH   "Directory containing prebuilt hw2 library (opti
 set(HW2LIB_NAME "hw2" CACHE STRING "Name of the prebuilt hw2 library (optional)")
 
 if (HW2LIB_DIR)
+  message(STATUS "Using HW2LIB_DIR: ${HW2LIB_DIR}, HW2LIB_NAME: ${HW2LIB_NAME}")
   # Link an external lib named HW2LIB_NAME from HW2LIB_DIR
   target_link_directories(${PROJECT_NAME} PRIVATE "${HW2LIB_DIR}")
   target_link_libraries(${PROJECT_NAME} PRIVATE ${HW2LIB_NAME})
 else()
+  message(STATUS "No HW2LIB_DIR provided, building hw2 from source.")
   # Build our own hw2 library from the HW2FILES and link it
   # We're readding the files we removed from above.
   add_library(hw2 STATIC ${HW2FILES})
